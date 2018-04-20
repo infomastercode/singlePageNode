@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Building a router</title>
+  <script></script>
+</head>
+<body>
+
+  <ul>
+    <li><a href="#/home">home</a></li>
+    <li><a href="#/about">about</a></li>
+  </ul>
+
+  <div id="view">
+
+  </div>
+
+
+  <script>
+
+  class AppRouter {
+
+
+    constructor(routes){
+     
+   this.routes = routes;
+
+      window.addEventListener('hashchange', () => this.router());
+      window.addEventListener('load', () => this.router());
+  
+    }
+
+    name(){
+      console.log(this.routes);
+      return 'AppRouter';
+    }
+
+    route (path, templateId) {
+      this.routes[path] = { templateId: templateId };
+    }
+
+    router () {
+     // let el = el || document.getElementById('view');
+      //let url = location.hash.slice(1) || '/';
+    //  let route = this.routes[url];
+      console.log(this.routes);
+    }
+
+  }
+
+  const routes = [
+  { path: '/home', component: 'page/home' },
+  { path: '/about', component: 'page/about' }
+  ];
+
+
+  const router = new AppRouter({
+    routes : routes
+  });
+
+
+
+
+
+
+
+
+  </script>
+
+
+
+</body>
+</html>

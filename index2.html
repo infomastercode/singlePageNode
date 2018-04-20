@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Building a router</title>
+  <script></script>
+</head>
+<body>
+
+  <ul>
+    <li><a href="#/product3">home</a></li>
+    <li><a href="#/product4">about</a></li>
+  </ul>
+
+  <div id="view">
+
+  </div>
+
+
+  <script>
+
+  let routes = {};
+  /*
+  function route (path, templateId, controller) {
+    routes[path] = {templateId: templateId, controller: controller};
+  }*/
+  function route (path, templateId) {
+    routes[path] = { templateId: templateId };
+  }
+
+  let el = null;
+  function router () {
+    el = el || document.getElementById('view');
+    var url = location.hash.slice(1) || '/';
+    var route = routes[url];
+
+/*
+    route.templateId.then(a=> {
+      el.innerHTML = a;
+      console.log( a );
+    })*/
+
+    console.log(route);
+
+
+   //   let p = new Promise((r,e)=>{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", route.templateId, true);
+    rawFile.onreadystatechange = function ()
+    {
+      if(rawFile.readyState === 4)
+      {
+        if(rawFile.status === 200 || rawFile.status == 0)
+        {
+          var allText = rawFile.responseText;
+
+
+          el.innerHTML = allText;
+        }
+      }
+    }
+    rawFile.send(null);
+    //  })
+
+
+
+    
+
+    /*
+    if (el && route.controller) {
+      el.innerHTML = tmpl(route.templateId, new route.controller());
+    }*/
+  }
+
+  window.addEventListener('hashchange', router);
+  window.addEventListener('load', router);
+
+
+  let getPath = new Promise((solve, reject) => {
+
+    route('/home', 'template1', function () {
+      console.log('s');
+      this.greeting = 'Hello world!';
+      this.moreText = 'Bacon ipsum...';
+    });
+
+    route('/about', 'template2', function () {
+      this.heading = 'I\'m page two!';
+    });
+
+    route('/product', xxxxxxxxxxxxxxx);
+
+    route('/product2', new Promise((r,e)=> {
+      //console.log(abc());
+    }));
+
+    route('/product3', 'page/home');
+    route('/product4', 'page/about');
+
+
+
+    const routes = [
+      { path: '/home', component: 'page/home' },
+      { path: '/about', component: 'page/about' }
+    ]
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function abc(){
+      var rawFile = new XMLHttpRequest();
+      rawFile.open("GET", 'page/home', true);
+      rawFile.onreadystatechange = function ()
+      {
+        if(rawFile.readyState === 4)
+        {
+          if(rawFile.status === 200 || rawFile.status == 0)
+          {
+            var allText = rawFile.responseText;
+            //console.log(allText);
+            //this.heading = allText;
+            return  allText;
+          }
+        }
+      }
+      rawFile.send(null);
+    }
+
+
+
+
+
+    function xxxxxxxxxxxxxxx(){
+
+      return new Promise((r,e)=>{
+        var rawFile = new XMLHttpRequest();
+        rawFile.open("GET", 'page/home', true);
+        rawFile.onreadystatechange = function ()
+        {
+          if(rawFile.readyState === 4)
+          {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+              var allText = rawFile.responseText;
+              console.log(allText);
+              this.heading = allText;
+              r(allText);
+            }
+          }
+        }
+        rawFile.send(null);
+      })
+
+
+
+
+    }
+
+
+    /*
+    route('/us', 'template2', function(){
+      var rawFile = new XMLHttpRequest();
+      rawFile.open("GET", 'page/home', true);
+      rawFile.onreadystatechange = function ()
+      {
+        if(rawFile.readyState === 4)
+        {
+          if(rawFile.status === 200 || rawFile.status == 0)
+          {
+            var allText = rawFile.responseText;
+            console.log(allText);
+            this.heading = allText;
+          }
+        }
+      }
+      rawFile.send(null);
+    });*/
+
+  });
+
+  </script>
+
+
+
+</body>
+</html>
