@@ -1,313 +1,60 @@
 <!DOCTYPE html>
-<!-- "20 line router" -->
-<!-- http://joakim.beng.se/blog/posts/a-javascript-router-in-20-lines.html -->
-<!-- Thanks : https://github.com/vitiral/notes/blob/ad75620f9b5445b18369408a7b23666e84624c0d/js/router/index.html -->
 <html>
 <head>
   <meta charset="utf-8">
   <title>Building a router</title>
-  <script
-  src="http://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+  <script></script>
+</head>
+<body>
+  <ul>
+    <li><a href="#/home">home</a></li>
+    <li><a href="#/about">about</a></li>
+  </ul>
+  <div id="view">
 
-  <script  src=" https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.21.3/system.js"></script>
+  </div>
 
 
- 
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./js/router.js"></script>
 
+  <script>
+    const routes = [
+      { path: '/home', component: 'component/home' },
+      { path: '/about', component: 'component/about' }
+    ];
 
+    const router = new AppRouter({
+      routes : routes,
+      view : 'view'
+    });
+    /*
+    axios.post('http://localhost:3000/api/add', 
+    this.name, // the data to post
+    { headers: {
+      'Content-type': 'application/x-www-form-urlencoded',
+      }
+    }).then(response => console.log(response) );*/
+  </script>
 
   <script>
 
-    //  SystemJS.import('file:///D:/C/test/node/singlePageNode/test.js');
-
-    // Simple JavaScript Templating
-    // John Resig - https://johnresig.com/ - MIT Licensed
-    (function(){
-      var cache = {};
-
-      this.tmpl = function tmpl(str, data){
-     //   console.log(str);
-        // Figure out if we're getting a template, or if we need to
-        // load the template - and be sure to cache the result.
-        var fn = !/\W/.test(str) ?
-        cache[str] = cache[str] ||
-        tmpl(document.getElementById(str).innerHTML) :
-
-          // Generate a reusable function that will serve as a template
-          // generator (and which will be cached).
-          new Function("obj",
-            "var p=[],print=function(){p.push.apply(p,arguments);};" +
-
-            // Introduce the data as local variables using with(){}
-            "with(obj){p.push('" +
-
-            // Convert the template into pure JavaScript
-            str
-            .replace(/[\r\t\n]/g, " ")
-            .split("<%").join("\t")
-            .replace(/((^|%>)[^\t]*)'/g, "$1\r")
-            .replace(/\t=(.*?)%>/g, "',$1,'")
-            .split("\t").join("');")
-            .split("%>").join("p.push('")
-            .split("\r").join("\\'")
-            + "');}return p.join('');");
-
-        // Provide some basic currying to the user
-        return data ? fn( data ) : fn;
-      };
-    })();
-
-    
-    </script>
-
-  </head>
-  <body>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#/page1">Page 1</a></li>
-      <li><a href="#/page2">Page 2</a></li>
-
-      <li><a href="#/page3">Page 3</a></li>
-      <li><a href="page/home">home</a></li>
-      <li><a href="page/about">about</a></li>
-    </ul>
-    <div id="view"></div>
-
-    <form action="http://localhost:3000/hi/5">
-      <button type="submit">submit</button>
-    </form>
-
-
-
-    <script>
-
-    var routes = {};
-    function route (path, templateId, controller) {
-      routes[path] = {templateId: templateId, controller: controller};
-    }
-
-    var el = null;
-    function router () {
-      el = el || document.getElementById('view');
-      var url = location.hash.slice(1) || '/';
-      var route = routes[url];
-      if (el && route.controller) {
-        el.innerHTML = tmpl(route.templateId, new route.controller());
-      }
-    }
-
-    window.addEventListener('hashchange', router);
-    window.addEventListener('load', router);
-
-
-
-    var txtFile = "c:/test.txt";
-    /*
-var file = new File(txtFile);*/
-/*
-var file = new File(["foo"], txtFile, {
-  type: "text/plain",
-});
-
-file.open("w");
-file.writeln("First line of text");
-file.writeln("Second line of text " + str);
-file.write(str);
-file.close();
-*/
-/*
-
-var request = new XMLHttpRequest();
-
-request.addEventListener("load", function(evt){
-    console.log(evt);
-}, false);
-
-request.open('GET', 'ex4_1.html', true),
-request.send();
-*/
-
-
-function readTextFile(file)
-{
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, true);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
-                var allText = rawFile.responseText;
-                console.log(allText);
-                return allText;
-            }
+        let xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", 'app.js', true);
+                xmlHttp.onreadystatechange = function(){
+        if(xmlHttp.readyState === 4 && (xmlHttp.status === 200 || xmlHttp.status == 0) ){
+            let responseText = xmlHttp.responseText;
+            eleView.innerHTML = responseText;
+          }
         }
-    }
-    rawFile.send(null);
-}
+        xmlHttp.send(null);
 
-//readTextFile("ex4_1.html");
+        
 
+  </script>
 
+  <script src="http://localhost:3000/about/about.js"></script>
 
-
-
-
-/*
-var debug = {hello: "world"};
-var blob = new Blob([JSON.stringify(debug, null, 2)], {type : 'application/json'});
-console.log(blob);
-
-
-var oFReader = new FileReader();
-oFReader.readAsText(blob);
-console.log(oFReader);
-*/
-
-
-function readTextFile(file)
-{
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, true);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
-                var allText = rawFile.responseText;
-                console.log(allText);
-            }
-        }
-    }
-    rawFile.send(null);
-}
-
-
-//readTextFile("file:///D:/C/test/node/singlePageNode/test.txt");
-/*
-  $.ajax({
-    url: 'D:/C/test/node/singlePageNode/test.txt',
-    type: 'dGET',
-    dataType: 'html'
-  })
-  .done(function() {
-    console.log("success");
-  })
-  .fail(function() {
-    console.log("error");
-  })
-  .always(function() {
-    console.log("complete");
-  });
-
-  jQuery.get('D:/C/test/node/singlePageNode/test.txt', function(data) {
-   alert(data);
-   //process text file line by line
-   $('#div').html(data.replace('n',''));
-});
-
-*/
-
-
-
-  function routeing(url){
-
-    let aa = new Promise( (r, e) => {
-            var rawFile = new XMLHttpRequest();
-            rawFile.open("GET", url, true);
-            rawFile.onreadystatechange = function ()
-            {
-                if(rawFile.readyState === 4)
-                {
-                    if(rawFile.status === 200 || rawFile.status == 0)
-                    {
-                        var allText = rawFile.responseText;
-
-                        route('/page3', 'template2', function () {
-      this.heading = allText;
-    });
-                       console.log(allText);
-                        r( allText);
-                    }
-                }
-            }
-            rawFile.send(null);
-
-        } );
-
-    return aa;
-
-
-  }
-
-/*
-      aa.then( (a) => {
-        this.heading = a
-        console.log(a);
-      } )*/
-
-    route('/', 'home', function () {
-
-    });
-
-
-    async  function sss(){
-
-    }
-
-    route('/page1', 'template1', function () {
-      this.greeting = 'Hello world!';
-      this.moreText = 'Bacon ipsum...';
-    });
-
-    route('/page2', 'template2', function () {
-      this.heading = 'I\'m page two!';
-    });
-
-     route('/page3', 'template2', function () {
-      this.heading = 'I\'m page two!';
-    });
-
-
-           routeing('page/home').then( a => {
-        this.heading = a;
-        console.log(a);
-        $("#view").text(a);
-      });
-
-
-
-
-/*
-    var request = new XMLHttpRequest();
-
-    request.addEventListener("load", function(evt){
-      console.log(evt);
-    }, false);
-
-    request.open('GET', 'ex4_1.html', true),
-    request.send();*/
-
-    </script>
-
-
-
-    <script type="text/html" id="home">
-    <h1>Router FTW!</h1>
-    </script>
-    <script type="text/html" id="template1">
-    <h1>Page 1: <%= greeting %></h1>
-    <p><%= moreText %></p>
-    </script>
-    <script type="text/html" id="template2">
-    <h1>Page 2: <%= heading %></h1>
-    <p>Lorem ipsum...</p>
-    </script>
-
-
-  </body>
-  </html>
+</body>
+</html>
