@@ -2,6 +2,11 @@
    	     console.log('x');
    }
 
+
+   function clickabout(){
+    console.log('clickabout');
+   }
+
 /*
      var app = new Vue({
         el: '#about',

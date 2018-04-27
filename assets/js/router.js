@@ -14,8 +14,8 @@ class AppRouter {
         xmlHttp.open("GET", route.component, true);
         xmlHttp.onreadystatechange = function(){
         if(xmlHttp.readyState === 4 && (xmlHttp.status === 200 || xmlHttp.status == 0) ){
-            let responseText = xmlHttp.responseText;
-            eleView.innerHTML = responseText;
+            eleView.innerHTML = xmlHttp.responseText;
+            loadScript(route.path);
           }
         }
         xmlHttp.send(null);
