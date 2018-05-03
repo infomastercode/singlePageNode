@@ -3,19 +3,88 @@
 <head>
   <meta charset="utf-8">
   <title>Building a router</title>
-  <script></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css">
 </head>
 <body>
-  <ul>
-    <li><a href="#/home">home</a></li>
-    <li><a href="#/about">about</a></li>
-    <li><a href="#/contact">contact</a></li>
-  </ul>
-  <div id="view">
+  <div class="container">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://bulma.io">
+          <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
+        </a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <!-- navbar items -->
+          <a class="navbar-item">Home</a>
+          <a class="navbar-item">Receipt</a>
+          <a class="navbar-item">Order</a>
+          <a class="navbar-item">Inventory</a>
+          <a class="navbar-item">Report</a>
+        </div>
+
+        <div class="navbar-end">
+          <!-- navbar items -->
+          <a class="navbar-item">Category</a>
+          <a class="navbar-item" href="/menu/product">Product</a>
+          <a class="navbar-item">Warehouse</a>
+        </div>
+      </div>
+    </nav>
+
+
+    <div class="columns">
+      <div class="column is-2">
+        <aside class="menu">
+          <p class="menu-label">
+            Views
+          </p>
+          <ul class="menu-list">
+            <li><a href="#/home">Home</a></li>
+            <li><a href="#/about">About</a></li>
+            <li><a href="#/contact">Contact</a></li>
+          </ul>
+          <p class="menu-label">
+            Admins
+          </p>
+          <ul class="menu-list">
+            <li><a href="#/home">Category</a></li>
+            <li><a href="#/product">Product</a></li>
+            <li><a href="#/home">Warehouse</a></li>
+          </ul>
+          <p class="menu-label">
+            Actions
+          </p>
+          <ul class="menu-list">
+            <li><a>Receipt</a></li>
+            <li><a>Order</a></li>
+          </ul>
+          <p class="menu-label">
+            Transactions
+          </p>
+          <ul class="menu-list">
+            <li><a>Payments</a></li>
+            <li><a>Transfers</a></li>
+            <li><a>Balance</a></li>
+          </ul>
+        </aside>
+      </div>
+      <div class="column">
+        <div id="view">
+
+        </div>
+      </div>
+    </div>
 
   </div>
 
-    <div id="app">
+
+  <div id="app">
 
   </div>
 
@@ -23,12 +92,14 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="./js/router.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 
   <script>
     const routes = [
-      { path: '/home', component: 'component/home' },
-      { path: '/about', component: 'component/about' },
-      { path: '/contact', component: 'component/contact' },
+    { path: '/home', component: 'component/home' },
+    { path: '/about', component: 'component/about' },
+    { path: '/contact', component: 'component/contact' },
+    { path: '/product', component: 'component/product' },
     ];
 
     const router = new AppRouter({
@@ -47,6 +118,8 @@
   </script>
 
   <script>
+
+    /*
     function loadScript(page){
       console.log('loadScript', page, window.location, window.location.host);
 
@@ -54,7 +127,7 @@
       // console.log(url);
 
       createScript(url, function(){});
-    }
+    }*/
 
 
 
@@ -62,13 +135,13 @@
 
     let catching = [];
     function createScript(url, callback){
-      
+
       if(catching.length === 0) { catching[url] = 1; }
 
 
 
       console.log(catching.length);
-   
+
 
 
       let script = document.createElement("script");
@@ -89,16 +162,16 @@
 
       script.src = url;
      // document.getElementsByTagName("head")[0].appendChild(script);
-      document.body.appendChild(script);
-    }
-  </script>
+     document.body.appendChild(script);
+   }
+ </script>
 
 
 
 
 
 
-  <script>
+ <script>
         /*
         let xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", 'app.js', true);
@@ -117,27 +190,27 @@
               msg1: 'Hellllllllllllllllo'
             },
             methods: {
-               add: function(){
-                console.log('add');
-              }
-
+             add: function(){
+              console.log('add');
             }
-          });
+
+          }
+        });
           console.log('clickme');
         }
-  </script>
+      </script>
 
-  <div id="loadjs">
-    
-  </div>
+      <div id="loadjs">
 
-  <script>
-     function loadabout(){
-      var abc = {};
+      </div>
+
+      <script>
+       function loadabout(){
+        var abc = {};
         let xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", 'about/about.js', true);
-                xmlHttp.onreadystatechange = function(){
-        if(xmlHttp.readyState === 4 && (xmlHttp.status === 200 || xmlHttp.status == 0) ){
+        xmlHttp.onreadystatechange = function(){
+          if(xmlHttp.readyState === 4 && (xmlHttp.status === 200 || xmlHttp.status == 0) ){
 
 
           //document.getElementById('loadjs').innerHTML = "<script>" + xmlHttp.responseText + "<\/script>";
@@ -152,49 +225,49 @@
           }
         }
         xmlHttp.send(null);
-     }
+      }
 
 
 
-  </script>
+    </script>
 
 
 
-  <script>
+    <script>
 
-    function loadScriptAbout(){
+      function loadScriptAbout(){
         loadScripts('http://localhost:3000/about/about.js', function(){
           //initialization code
         });
-    }
-    
-  function loadScripts(url, callback){
+      }
 
-            var script = document.createElement("script")
-            script.type = "text/javascript";
+      function loadScripts(url, callback){
+
+        var script = document.createElement("script")
+        script.type = "text/javascript";
 
             if (script.readyState){  //IE
-                script.onreadystatechange = function(){
-                    if (script.readyState == "loaded" ||
-                            script.readyState == "complete"){
-                        script.onreadystatechange = null;
-                        callback();
-                    }
-                };
+              script.onreadystatechange = function(){
+                if (script.readyState == "loaded" ||
+                  script.readyState == "complete"){
+                  script.onreadystatechange = null;
+                callback();
+              }
+            };
             } else {  //Others
-                script.onload = function(){
-                    callback();
-                };
+              script.onload = function(){
+                callback();
+              };
             }
 
             script.src = url;
             document.getElementsByTagName("head")[0].appendChild(script);
-        }
+          }
 
 
-  </script>
+        </script>
 
-  <!-- <script src="http://localhost:3000/about/about.js"></script> -->
+        <!-- <script src="http://localhost:3000/about/about.js"></script> -->
 
-</body>
-</html>
+      </body>
+      </html>
