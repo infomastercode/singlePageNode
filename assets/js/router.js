@@ -13,11 +13,11 @@ class AppRouter {
     if(typeof route === 'undefined') throw 'Error can not found ' + url;
     
     let xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", route.component, true);
+    xmlHttp.open("GET", 'component/' + route.component, true);
     xmlHttp.onreadystatechange = () => {
       if(xmlHttp.readyState === 4 && (xmlHttp.status === 200 || xmlHttp.status == 0) ){
         eleView.innerHTML = xmlHttp.responseText;
-        this.loadScript(route.path);
+        this.loadScript(route.component);
       }
     }
     xmlHttp.send(null);
@@ -28,7 +28,7 @@ class AppRouter {
       this.cache_controller.push(page);
 
       let location = window.location;
-      let url = location.protocol +'//'+ location.host + page + page + '.js'; /* http://localhost:3000/product/product.js */
+      let url = location.protocol +'//'+ location.host + '/' + page  + '.js'; /* http://localhost:3000/product/product.js */
 
       let script = document.createElement("script");
       script.type = "text/javascript";
