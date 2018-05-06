@@ -225,6 +225,7 @@
         error: function(xhr, error) {
         },
         success: function(response) {
+          console.log(response);
           _this.$element.trigger('dynatable:ajax:success', response);
           // Merge ajax results and meta-data into dynatables cached data
           _this.records.updateFromJson(response);
@@ -280,10 +281,13 @@
       tr += cellWriter(columns[i], record);
     }
 
-    return '<tr>' + tr + '</tr>';
+    return '<tr>' + tr + 'abc' + '</tr>';
   };
 
   function defaultCellWriter(column, record) {
+
+   // console.log(record);
+
     var html = column.attributeWriter(record),
         td = '<td';
 
@@ -303,10 +307,15 @@
       td += '"';
     }
 
+
+
     return td + '>' + html + '</td>';
   };
 
   function defaultAttributeWriter(record) {
+
+    console.log(this.id);
+
     // `this` is the column object in settings.columns
     // TODO: automatically convert common types, such as arrays and objects, to string
     return record[this.id];

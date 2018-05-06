@@ -1,15 +1,19 @@
-var dataTable = new DataTable("#myTable");
+//var dataTable = new DataTable("#myTable");
 //console.log(dataTable);
 
-    $('#aaaaaa').dynatable({
+function loadThis(){
+	    $('#aaaaaa').dynatable({
         dataset: {
             ajax: true,
-            ajaxMethod: 'GET',
-            ajaxUrl: 'https://www.dynatable.com/dynatable-ajax.json?page=1&perPage=10&offset=0',
+            //ajaxMethod: 'GET',
+            ajaxUrl: 'http://localhost:3000/api/test',
             ajaxOnLoad: true,
-            records: []
+            records: [],
+
         }
     });
+}
+
 
   /*  var dynatable = $('#aaaaaa"').dynatable({
         dataset: {
